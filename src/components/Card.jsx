@@ -3,15 +3,24 @@ import styles from './Card.module.scss';
 
 function Card(props) {
   const [add, setAdd] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const addProduct = () => {
     add ? setAdd(false) : setAdd(true);
   };
 
+  const favorIteItems = () => {
+    isFavorite ? setIsFavorite(false) : setIsFavorite(true);
+    props.addInFavorites(props.id);
+  };
+
   return (
     <div className={styles.card}>
-      <div className={styles.favorite} onClick={props.onFavoriteClick}>
-        <img src="/img/heart-unliked.svg" alt="Unliked" />
+      <div className={styles.favorite} onClick={favorIteItems}>
+        <img
+          src={`/img/heart-${isFavorite ? 'liked' : 'unliked'}.svg`}
+          alt="Unliked"
+        />
       </div>
       <img width={133} height={112} src={props.imageUrl} alt="Sneakers" />
       <h5>{props.title}</h5>
