@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AppContext } from '../../App';
 import Card from '../Card';
 
-const FaforitesList = ({ addInFavorites }) => {
+const FavoritesList = ({ addInFavorites }) => {
   const state = useContext(AppContext);
 
   return (
@@ -28,4 +28,4 @@ const FaforitesList = ({ addInFavorites }) => {
   );
 };
 
-export default FaforitesList;
+export default FavoritesList;

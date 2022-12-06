@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import FavoritesList from './components/navigation/FaforitesList';
+import FavoritesList from './components/navigation/FavoritesList';
 import ProductList from './components/navigation/ProductList';
-import Personal from './components/navigation/Personal';
 
 export const AppContext = React.createContext({});
 
@@ -89,7 +88,13 @@ function App() {
   return (
     <BrowserRouter>
       <AppContext.Provider
-        value={{ cartItems, favoritesItems, arr, isItemAdded }}
+        value={{
+          cartItems,
+          favoritesItems,
+          isItemAdded,
+          setCartOpened,
+          setCartItems,
+        }}
       >
         <div className="wrapper clear">
           {cartOpened && (
@@ -116,7 +121,6 @@ function App() {
               path="/favorites"
               element={<FavoritesList addInFavorites={addInFavorites} />}
             />
-            <Route path="/personal" element={<Personal />} />
           </Routes>
         </div>
       </AppContext.Provider>
