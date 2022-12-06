@@ -1,6 +1,10 @@
+import { useContext } from 'react';
+import { AppContext } from '../../App';
 import Card from '../Card';
 
-const FaforitesList = ({ favoritesItems, addInFavorites }) => {
+const FaforitesList = ({ addInFavorites }) => {
+  const state = useContext(AppContext);
+
   return (
     <div className="content p-40">
       <div className="d-flex align-center justify-between mb-40">
@@ -8,7 +12,7 @@ const FaforitesList = ({ favoritesItems, addInFavorites }) => {
       </div>
 
       <div className="d-flex flex-wrap">
-        {favoritesItems.map((obj) => (
+        {state.favoritesItems.map((obj) => (
           <Card
             id={obj.id}
             title={obj.title}

@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
 import FavoritesList from './components/navigation/FaforitesList';
 import ProductList from './components/navigation/ProductList';
 import Personal from './components/navigation/Personal';
+
+export const AppContext = React.createContext({});
 
 function App() {
   const [cartOpened, setCartOpened] = useState(false);
@@ -80,42 +82,44 @@ function App() {
     setFavoritesItems((prev) => prev.filter((el) => +el.id !== +id));
   };
 
+  const isItemAdded = (title) => {
+    return cartItems.some((el) => el.title === title);
+  };
+
   return (
     <BrowserRouter>
-      <div className="wrapper clear">
-        {cartOpened && (
-          <Drawer
-            setCartOpened={setCartOpened}
-            cartItems={cartItems}
-            removeFromCart={removeFromCart}
-          />
-        )}
-        <Header setCartOpened={setCartOpened} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProductList
-                favoritesItems={favoritesItems}
-                cartItems={cartItems}
-                addInFavorites={addInFavorites}
-                addInCart={addInCart}
-                arr={arr}
-              />
-            }
-          />
-          <Route
-            path="/favorites"
-            element={
-              <FavoritesList
-                favoritesItems={favoritesItems}
-                addInFavorites={addInFavorites}
-              />
-            }
-          />
-          <Route path="/personal" element={<Personal />} />
-        </Routes>
-      </div>
+      <AppContext.Provider
+        value={{ cartItems, favoritesItems, arr, isItemAdded }}
+      >
+        <div className="wrapper clear">
+          {cartOpened && (
+            <Drawer
+              setCartOpened={setCartOpened}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+            />
+          )}
+          <Header setCartOpened={setCartOpened} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProductList
+                  favoritesItems={favoritesItems}
+                  addInFavorites={addInFavorites}
+                  addInCart={addInCart}
+                  arr={arr}
+                />
+              }
+            />
+            <Route
+              path="/favorites"
+              element={<FavoritesList addInFavorites={addInFavorites} />}
+            />
+            <Route path="/personal" element={<Personal />} />
+          </Routes>
+        </div>
+      </AppContext.Provider>
     </BrowserRouter>
   );
 }

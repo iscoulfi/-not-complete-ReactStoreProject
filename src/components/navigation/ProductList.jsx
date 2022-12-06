@@ -5,7 +5,7 @@ const ProductList = ({
   addInFavorites,
   addInCart,
   arr,
-  cartItems,
+
   favoritesItems,
 }) => {
   const [value, setValue] = useState('');
@@ -22,7 +22,6 @@ const ProductList = ({
             addInCart={addInCart}
             addInFavorites={addInFavorites}
             key={obj.id}
-            added={cartItems.some((el) => el.title === obj.title)}
             favorite={favoritesItems.some((el) => el.title === obj.title)}
           />
         )

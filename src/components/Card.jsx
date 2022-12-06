@@ -1,13 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AppContext } from '../App';
 import styles from './Card.module.scss';
 
 function Card({ favorite = false, added = false, ...props }) {
-  const [add, setAdd] = useState(added);
   const [isFavorite, setIsFavorite] = useState(favorite);
-
-  const addProduct = () => {
-    add ? setAdd(false) : setAdd(true);
-  };
+  const { isItemAdded } = useContext(AppContext);
 
   const favoriteItems = () => {
     isFavorite ? setIsFavorite(false) : setIsFavorite(true);
@@ -32,10 +29,13 @@ function Card({ favorite = false, added = false, ...props }) {
         <img
           className={styles.plus}
           onClick={() => {
-            addProduct();
             props.addInCart(props.id, props.title);
           }}
-          src={add ? '/img/btn-checked.svg' : '/img/btn-plus.svg'}
+          src={
+            isItemAdded(props.title)
+              ? '/img/btn-checked.svg'
+              : '/img/btn-plus.svg'
+          }
           alt="Plus"
         />
       </div>
