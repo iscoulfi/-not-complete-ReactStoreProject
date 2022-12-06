@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import styles from './Card.module.scss';
 
-function Card(props) {
-  const [add, setAdd] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+function Card({ favorite = false, added = false, ...props }) {
+  const [add, setAdd] = useState(added);
+  const [isFavorite, setIsFavorite] = useState(favorite);
 
   const addProduct = () => {
     add ? setAdd(false) : setAdd(true);
   };
 
-  const favorIteItems = () => {
+  const favoriteItems = () => {
     isFavorite ? setIsFavorite(false) : setIsFavorite(true);
-    props.addInFavorites(props.id);
+    props.addInFavorites(props.id, props.title);
   };
 
   return (
     <div className={styles.card}>
-      <div className={styles.favorite} onClick={favorIteItems}>
+      <div className={styles.favorite} onClick={favoriteItems}>
         <img
           src={`/img/heart-${isFavorite ? 'liked' : 'unliked'}.svg`}
           alt="Unliked"
@@ -33,7 +33,7 @@ function Card(props) {
           className={styles.plus}
           onClick={() => {
             addProduct();
-            props.addInCart(props.id, add);
+            props.addInCart(props.id, props.title);
           }}
           src={add ? '/img/btn-checked.svg' : '/img/btn-plus.svg'}
           alt="Plus"

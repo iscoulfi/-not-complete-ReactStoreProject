@@ -54,19 +54,22 @@ function Drawer({ setCartOpened, cartItems, removeFromCart }) {
             </div>
           </>
         ) : (
-          <div class="cartEmpty d-flex align-center justify-center flex-column flex">
+          <div className="cartEmpty d-flex align-center justify-center flex-column flex">
             <img
-              class="mb-20"
+              className="mb-20"
               width="120px"
               height="120px"
               src="/img/empty-cart.jpg"
               alt="Empty"
             />
             <h2>Корзина пустая</h2>
-            <p class="opacity-6">
+            <p className="opacity-6">
               Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.
             </p>
-            <button class="greenButton" onClick={() => setCartOpened(false)}>
+            <button
+              className="greenButton"
+              onClick={() => setCartOpened(false)}
+            >
               <img src="/img/arrow1.svg" alt="Arrow" />
               Вернуться назад
             </button>
