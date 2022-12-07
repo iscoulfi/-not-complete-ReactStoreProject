@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
@@ -89,7 +89,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppContext.Provider
         value={{
           cartItems,
@@ -109,7 +109,7 @@ function App() {
           <Header setCartOpened={setCartOpened} />
           <Routes>
             <Route
-              path="/"
+              path=""
               element={
                 <ProductList
                   favoritesItems={favoritesItems}
@@ -127,7 +127,7 @@ function App() {
           </Routes>
         </div>
       </AppContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

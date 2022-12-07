@@ -43,7 +43,7 @@ function Drawer({ setCartOpened, removeFromCart, cartOpened }) {
           Корзина
           <img
             className="cu-p"
-            src="/img/btn-remove.svg"
+            src="img/btn-remove.svg"
             alt="Remove"
             onClick={() => setCartOpened(false)}
           />
@@ -65,7 +65,7 @@ function Drawer({ setCartOpened, removeFromCart, cartOpened }) {
                   </div>
                   <img
                     className="removeBtn"
-                    src="/img/btn-remove.svg"
+                    src="img/btn-remove.svg"
                     alt="Remove"
                     onClick={() => removeFromCart(item.id)}
                   />
@@ -81,7 +81,7 @@ function Drawer({ setCartOpened, removeFromCart, cartOpened }) {
                 </li>
               </ul>
               <button className="greenButton" onClick={onCkickOrder}>
-                Оформить заказ <img src="/img/arrow.svg" alt="Arrow" />
+                Оформить заказ <img src="img/arrow.svg" alt="Arrow" />
               </button>
             </div>
           </>
@@ -94,9 +94,7 @@ function Drawer({ setCartOpened, removeFromCart, cartOpened }) {
                 : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
             }
             image={
-              isOrderComplete
-                ? '/img/complete-order.jpg'
-                : '/img/empty-cart.jpg'
+              isOrderComplete ? 'img/complete-order.jpg' : 'img/empty-cart.jpg'
             }
           />
         )}

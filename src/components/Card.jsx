@@ -15,7 +15,7 @@ function Card({ favorite = false, added = false, ...props }) {
     <div className={styles.card}>
       <div className={styles.favorite} onClick={favoriteItems}>
         <img
-          src={`/img/heart-${isFavorite ? 'liked' : 'unliked'}.svg`}
+          src={`img/heart-${isFavorite ? 'liked' : 'unliked'}.svg`}
           alt="Unliked"
         />
       </div>
@@ -33,8 +33,8 @@ function Card({ favorite = false, added = false, ...props }) {
           }}
           src={
             isItemAdded(props.title)
-              ? '/img/btn-checked.svg'
-              : '/img/btn-plus.svg'
+              ? 'img/btn-checked.svg'
+              : 'img/btn-plus.svg'
           }
           alt="Plus"
         />
