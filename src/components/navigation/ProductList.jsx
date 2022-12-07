@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import Card from '../Card';
 
-const ProductList = ({
-  addInFavorites,
-  addInCart,
-  arr,
-
-  favoritesItems,
-}) => {
+const ProductList = ({ addInFavorites, addInCart, arr, favoritesItems }) => {
   const [value, setValue] = useState('');
 
   const renderItems = () => {

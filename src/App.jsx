@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Drawer from './components/Drawer';
 import FavoritesList from './components/navigation/FavoritesList';
 import ProductList from './components/navigation/ProductList';
+import Orders from './components/navigation/Orders';
 
 export const AppContext = React.createContext({});
 
@@ -16,26 +17,27 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const cartResponse = await axios.get(
-        'https://638b52d37220b45d228d4933.mockapi.io/cart'
-      );
+      try {
+        const [cartResponse, favoritesResponse, arrResponse] =
+          await Promise.all([
+            axios.get('https://638b52d37220b45d228d4933.mockapi.io/cart'),
+            axios.get('https://638b52d37220b45d228d4933.mockapi.io/favorites'),
+            axios.get('https://638b52d37220b45d228d4933.mockapi.io/items'),
+          ]);
 
-      const favoritesResponse = await axios.get(
-        'https://638b52d37220b45d228d4933.mockapi.io/favorites'
-      );
-
-      const arrResponse = await axios.get(
-        'https://638b52d37220b45d228d4933.mockapi.io/items'
-      );
-
-      setCartItems(cartResponse.data);
-      setFavoritesItems(favoritesResponse.data);
-      setArr(arrResponse.data);
+        setCartItems(cartResponse.data);
+        setFavoritesItems(favoritesResponse.data);
+        setArr(arrResponse.data);
+      } catch (error) {
+        console.log('Ошибка при запросе данных');
+        console.error(error);
+      }
     }
     fetchData();
   }, []);
 
   const addInCart = async (id, title) => {
+    console.log(typeof price);
     try {
       if (cartItems.find((item) => item.title === title)) {
         removeFromCart(cartItems.find((item) => item.title === title).id);
@@ -72,6 +74,7 @@ function App() {
       }
     } catch (error) {
       console.log('Не удалось добавить в фавориты');
+      console.error(error);
     }
   };
 
@@ -97,13 +100,12 @@ function App() {
         }}
       >
         <div className="wrapper clear">
-          {cartOpened && (
-            <Drawer
-              setCartOpened={setCartOpened}
-              cartItems={cartItems}
-              removeFromCart={removeFromCart}
-            />
-          )}
+          <Drawer
+            setCartOpened={setCartOpened}
+            removeFromCart={removeFromCart}
+            cartOpened={cartOpened}
+          />
+
           <Header setCartOpened={setCartOpened} />
           <Routes>
             <Route
@@ -121,6 +123,7 @@ function App() {
               path="/favorites"
               element={<FavoritesList addInFavorites={addInFavorites} />}
             />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </div>
       </AppContext.Provider>

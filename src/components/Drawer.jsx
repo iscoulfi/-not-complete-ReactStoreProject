@@ -1,12 +1,14 @@
 import axios from 'axios';
-import { useContext, useState } from 'react';
-import { AppContext } from '../App';
+import { useState } from 'react';
+import useCart from '../hooks/useCart';
 import Info from './navigation/Info';
+import styles from './Drawer.module.scss';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function Drawer({ setCartOpened, cartItems, removeFromCart }) {
-  const { setCartItems } = useContext(AppContext);
+function Drawer({ setCartOpened, removeFromCart, cartOpened }) {
+  const { setCartItems, cartItems, amount } = useCart();
+
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [orderId, setOrderId] = useState(false);
 
@@ -33,8 +35,10 @@ function Drawer({ setCartOpened, cartItems, removeFromCart }) {
   };
 
   return (
-    <div className="overlay">
-      <div className="drawer">
+    <div
+      className={`${styles.overlay} ${cartOpened ? styles.overlayVisible : ''}`}
+    >
+      <div className={styles.drawer}>
         <h2 className="d-flex justify-between mb-30">
           Корзина
           <img
@@ -73,12 +77,7 @@ function Drawer({ setCartOpened, cartItems, removeFromCart }) {
                 <li>
                   <span>Итого:</span>
                   <div></div>
-                  <b>21 498 руб. </b>
-                </li>
-                <li>
-                  <span>Налог 5%:</span>
-                  <div></div>
-                  <b>1074 руб. </b>
+                  <b>{amount} руб.</b>
                 </li>
               </ul>
               <button className="greenButton" onClick={onCkickOrder}>
