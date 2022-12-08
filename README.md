@@ -1,4 +1,4 @@
-# Create React App test
+Complete React Store Project
 
 ## Available Scripts
 
